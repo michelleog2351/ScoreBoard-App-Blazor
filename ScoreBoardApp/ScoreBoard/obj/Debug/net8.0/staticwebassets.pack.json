@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ScoreBoard.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ScoreBoard.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ScoreBoard.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ScoreBoard.props",
+      "PackagePath": "build\\ScoreBoard.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ScoreBoard.props",
+      "PackagePath": "buildMultiTargeting\\ScoreBoard.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ScoreBoard.props",
+      "PackagePath": "buildTransitive\\ScoreBoard.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

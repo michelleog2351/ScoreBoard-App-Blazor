@@ -1,0 +1,39 @@
+﻿@page "/counter"
+@rendermode InteractiveServer
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<div id="scoreboard">
+<input @oninput="UpdateCompName" placeholder="Enter Competition Name" />
+	<p>@compName</p>	
+<br />
+<br />
+<input @oninput="UpdateTeamName1" placeholder="Enter Team Name" />
+	<p>@teamName1</p>
+<input @oninput="UpdateTeamName2" placeholder="Enter Team Name"/>
+	<p>@teamName2</p>
+</div>
+
+@code {
+    private int currentCount = 0;
+    string compName = "";
+    string teamName1 = "";
+    string teamName2 = "";
+
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+    private void UpdateCompName(ChangeEventArgs e) => compName = e.Value?.ToString()!;
+
+    private void UpdateTeamName1(ChangeEventArgs e) => teamName1 = e.Value?.ToString()!;
+
+    private void UpdateTeamName2(ChangeEventArgs e) => teamName2 = e.Value?.ToString()!;
+}
