@@ -7,29 +7,58 @@
 
 <p role="status">Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+@* <button class="btn btn-primary" @onclick="IncrementCount">Click me</button> *@
 
-<div id="scoreboard">
+<div class="container text-center" id="scoreboard">
     <div class="input-group mb-3">
-        <input type="text" class="form-control" @bind="compName" placeholder="Enter competition name" />
+        <input type="text" class="form-control" @bind="compName" placeholder="Enter league or competition name" />
         <button class="btn btn-outline-primary" type="button" @onclick="ConfirmCompName">Confirm</button>
     </div>
-    <p>@confirmedCompName</p>
+    <p><strong>@confirmedCompName</strong></p>
     <hr />
 
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" @bind="teamName1" placeholder="Enter team name" />
-        <button class="btn btn-primary" type="button" @onclick="ConfirmTeamName1">Confirm</button>
-    </div>
-    <p>@confirmedTeamName1</p>
+    <!-- Row for Team 1 and Team 2 -->
+    <div class="row justify-content-center">
 
-    <div class="d-flex justify-content-end">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" @bind="teamName2" placeholder="Enter team name" />
-            <button class="btn btn-primary" type="button" @onclick="ConfirmTeamName2">Confirm</button>
+        <!-- Team 1 -->
+        <div class="col-md-4">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" @bind="teamName1" placeholder="Enter team name" />
+                <button class="btn btn-primary" type="button" @onclick="ConfirmTeamName1">Confirm</button>
+            </div>
+            <p><strong>@confirmedTeamName1</strong></p>
+        </div>
+    
+        <!-- Versus Separator -->
+        @* <div class="col-md-3 d-flex align-items-center justify-content-center">
+            <h2>VS</h2>
+        </div> *@
+
+        
+            <!-- Team 1 Score Input -->
+            <div class="col-md-1">
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" />
+                </div>
+            </div>
+
+            <div class="col-md-1"><h2>-</h2></div>
+            <!-- Team 2 Score Input -->
+            <div class="col-md-1">
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" />
+                </div>
+            </div>
+
+        <!-- Team 2 -->
+        <div class="col-md-4">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" @bind="teamName2" placeholder="Enter team name" />
+                <button class="btn btn-primary" type="button" @onclick="ConfirmTeamName2">Confirm</button>
+            </div>
+            <p><strong>@confirmedTeamName2</strong></p>
         </div>
     </div>
-    <p>@confirmedTeamName2</p>
 </div>
 
 @code {

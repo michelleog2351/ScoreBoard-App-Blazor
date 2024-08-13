@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "G73rOnqPqiSIT/gzNOEwx2pujTiafAS3MZ7W8Is3t8E=",
+  "Hash": "1aswzVlgNKmSOzia3U77+zsCXlzuxF15ji7mZDPpBgc=",
   "Source": "ScoreBoard",
   "BasePath": "_content/ScoreBoard",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "ScoreBoard\\wwwroot",
       "Source": "ScoreBoard",
-      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\wwwroot\\",
       "BasePath": "_content/ScoreBoard",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ScoreBoard.styles.css",
+      "Identity": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ScoreBoard.styles.css",
       "SourceId": "ScoreBoard",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/ScoreBoard",
       "RelativePath": "ScoreBoard.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ScoreBoard.styles.css"
+      "OriginalItemSpec": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ScoreBoard.styles.css"
     },
     {
-      "Identity": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ScoreBoard.bundle.scp.css",
+      "Identity": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ScoreBoard.bundle.scp.css",
       "SourceId": "ScoreBoard",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/ScoreBoard",
       "RelativePath": "ScoreBoard.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ScoreBoard.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ScoreBoard.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\wwwroot\\app.css",
+      "Identity": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\wwwroot\\app.css",
       "SourceId": "ScoreBoard",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\wwwroot\\",
       "BasePath": "_content/ScoreBoard",
       "RelativePath": "app.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "ScoreBoard",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\wwwroot\\",
       "BasePath": "_content/ScoreBoard",
       "RelativePath": "bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "ScoreBoard",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\wwwroot\\",
       "BasePath": "_content/ScoreBoard",
       "RelativePath": "bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\wwwroot\\favicon.png",
+      "Identity": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\wwwroot\\favicon.png",
       "SourceId": "ScoreBoard",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\wwwroot\\",
       "BasePath": "_content/ScoreBoard",
       "RelativePath": "favicon.png",
       "AssetKind": "All",
