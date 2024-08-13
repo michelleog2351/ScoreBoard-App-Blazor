@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\ScoreBoard.csproj": {}
+    "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\ScoreBoard.csproj": {}
   },
   "projects": {
-    "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\ScoreBoard.csproj": {
+    "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\ScoreBoard.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\ScoreBoard.csproj",
+        "projectUniqueName": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\ScoreBoard.csproj",
         "projectName": "ScoreBoard",
-        "projectPath": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\ScoreBoard.csproj",
+        "projectPath": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\ScoreBoard.csproj",
         "packagesPath": "C:\\Users\\oguna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard\\ScoreBoard\\ScoreBoard\\obj\\",
+        "outputPath": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

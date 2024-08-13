@@ -10,30 +10,46 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 <div id="scoreboard">
-<input @oninput="UpdateCompName" placeholder="Enter Competition Name" />
-	<p>@compName</p>	
-<br />
-<br />
-<input @oninput="UpdateTeamName1" placeholder="Enter Team Name" />
-	<p>@teamName1</p>
-<input @oninput="UpdateTeamName2" placeholder="Enter Team Name"/>
-	<p>@teamName2</p>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" @bind="compName" placeholder="Enter competition name" />
+        <button class="btn btn-outline-primary" type="button" @onclick="ConfirmCompName">Confirm</button>
+    </div>
+    <p>@confirmedCompName</p>
+    <hr />
+
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" @bind="teamName1" placeholder="Enter team name" />
+        <button class="btn btn-primary" type="button" @onclick="ConfirmTeamName1">Confirm</button>
+    </div>
+    <p>@confirmedTeamName1</p>
+
+    <div class="d-flex justify-content-end">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" @bind="teamName2" placeholder="Enter team name" />
+            <button class="btn btn-primary" type="button" @onclick="ConfirmTeamName2">Confirm</button>
+        </div>
+    </div>
+    <p>@confirmedTeamName2</p>
 </div>
 
 @code {
     private int currentCount = 0;
-    string compName = "";
-    string teamName1 = "";
-    string teamName2 = "";
+
+    private string compName = "";
+    private string confirmedCompName = "";
+    private string teamName1 = "";
+    private string confirmedTeamName1 = "";
+    private string teamName2 = "";
+    private string confirmedTeamName2 = "";
 
 
     private void IncrementCount()
     {
         currentCount++;
     }
-    private void UpdateCompName(ChangeEventArgs e) => compName = e.Value?.ToString()!;
+    private void ConfirmCompName() => confirmedCompName = compName;
 
-    private void UpdateTeamName1(ChangeEventArgs e) => teamName1 = e.Value?.ToString()!;
+    private void ConfirmTeamName1() => confirmedTeamName1 = teamName1;
 
-    private void UpdateTeamName2(ChangeEventArgs e) => teamName2 = e.Value?.ToString()!;
+    private void ConfirmTeamName2() => confirmedTeamName2 = teamName2;
 }
