@@ -11,7 +11,7 @@
 
 <div class="container text-center" id="scoreboard">
     <div class="input-group mb-3">
-        <input type="text" class="form-control" @bind="compName" placeholder="Enter league or competition name" />
+        <input type="text" class="form-control" @bind="compName" placeholder="Enter league or competition name" name="comp-name" autocomplete="on" />
         <button class="btn btn-outline-primary" type="button" @onclick="ConfirmCompName">Confirm</button>
     </div>
     <p><strong>@confirmedCompName</strong></p>
@@ -23,42 +23,38 @@
         <!-- Team 1 -->
         <div class="col-md-4">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" @bind="teamName1" placeholder="Enter team name" />
+                <input type="text" class="form-control" @bind="teamName1" placeholder="Enter team name" name="team1-name" autocomplete="on" />
                 <button class="btn btn-primary" type="button" @onclick="ConfirmTeamName1">Confirm</button>
             </div>
             <p><strong>@confirmedTeamName1</strong></p>
         </div>
-    
-        <!-- Versus Separator -->
-        @* <div class="col-md-3 d-flex align-items-center justify-content-center">
-            <h2>VS</h2>
-        </div> *@
 
-        
             <!-- Team 1 Score Input -->
             <div class="col-md-1">
-                <div class="input-group mb-3">
-                    <input type="number" class="form-control" />
-                </div>
+                    <input type="number" class="form-control" @bind="team1score" />
             </div>
 
-            <div class="col-md-1"><h2>-</h2></div>
+            @* Dash *@
+            <div class="col-md-1 text-center">
+                <h2><strong>-</strong></h2>
+            </div>
+
             <!-- Team 2 Score Input -->
             <div class="col-md-1">
-                <div class="input-group mb-3">
-                    <input type="number" class="form-control" />
-                </div>
+                    <input type="number" class="form-control" @bind="team2score" />
             </div>
 
         <!-- Team 2 -->
         <div class="col-md-4">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" @bind="teamName2" placeholder="Enter team name" />
+                <input type="text" class="form-control" @bind="teamName2" placeholder="Enter team name" name="team2-name" autocomplete="on" />
                 <button class="btn btn-primary" type="button" @onclick="ConfirmTeamName2">Confirm</button>
             </div>
             <p><strong>@confirmedTeamName2</strong></p>
         </div>
     </div>
+
+    <p><strong>@team1score - @team2score</strong></p>
 </div>
 
 @code {
@@ -70,6 +66,8 @@
     private string confirmedTeamName1 = "";
     private string teamName2 = "";
     private string confirmedTeamName2 = "";
+    private int team1score = 0;
+    private int team2score = 0;
 
 
     private void IncrementCount()
