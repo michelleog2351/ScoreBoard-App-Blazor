@@ -26,7 +26,7 @@
                 <input type="text" class="form-control" @bind="teamName1" placeholder="Enter team name" name="team1-name" autocomplete="on" />
                 <button class="btn btn-primary" type="button" @onclick="ConfirmTeamName1">Confirm</button>
             </div>
-            <p><strong>@confirmedTeamName1</strong></p>
+            <p><h2>@confirmedTeamName1</h2></p>
         </div>
 
             <!-- Team 1 Score Input -->
@@ -50,15 +50,20 @@
                 <input type="text" class="form-control" @bind="teamName2" placeholder="Enter team name" name="team2-name" autocomplete="on" />
                 <button class="btn btn-primary" type="button" @onclick="ConfirmTeamName2">Confirm</button>
             </div>
-            <p><strong>@confirmedTeamName2</strong></p>
+            <p><h2>@confirmedTeamName2</h2></p>
         </div>
     </div>
-
+                                                              
     <p><strong>@team1score - @team2score</strong></p>
+    <!-- Timer -->
+    <div class="mt-4">
+        <h2>@timeElapsedString</h2>
+    </div>
+
 </div>
 
 @code {
-    private int currentCount = 0;
+    private int currentCount = 0; 
 
     private string compName = "";
     private string confirmedCompName = "";
@@ -69,6 +74,35 @@
     private int team1score = 0;
     private int team2score = 0;
 
+    private TimeSpan timeElapsed = TimeSpan.Zero;
+    private string timeElapsedString = "00:00";
+    private System.Timers.Timer? timer;
+
+    protected override void OnInitialized()
+    {
+        timer = new System.Timers.Timer(1000); // Timer will tick every second (1000 milliseconds)
+        timer.Elapsed += OnTimerElapsed;
+        timer.Start();
+    }
+
+    private void OnTimerElapsed(object? sender, System.Timers.ElapsedEventArgs e)
+    {
+        timeElapsed = timeElapsed.Add(TimeSpan.FromSeconds(1));
+
+        if (timeElapsed.TotalMinutes < 90)
+        {
+            timeElapsedString = timeElapsed.ToString(@"mm\:ss");
+        }
+        else
+        {
+            timeElapsedString = "90:00";
+            timer?.Stop();
+        }
+
+        InvokeAsync(StateHasChanged); // To update the UI on each tick
+    }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 
     private void IncrementCount()
     {
