@@ -5,16 +5,18 @@
 
 <h1>Ongoing Matches</h1>
 
-<p role="status">Current count: @currentCount</p>
+@* <p role="status">Current count: @currentCount</p> *@
 
-<button class="btn btn-primary" @onclick="AddNewMatch">Add Another Section</button>
-
+@* <button class="btn btn-primary" @onclick="AddNewMatch">Add Another Section</button>
+ *@
 <div class="container text-center" id="scoreboard">
+     @foreach (var match in matches)
+    {
     <div class="input-group mb-3">
-        <input type="text" class="form-control" @bind="compName" placeholder="Enter league or competition name" name="comp-name" autocomplete="on" />
-        <button class="btn btn-outline-primary" type="button" @onclick="ConfirmCompName">Confirm</button>
+        <input type="text" class="form-control" @bind="match.CompName" placeholder="Enter league or competition name" name="comp-name" autocomplete="on" />
+            <button class="btn btn-outline-primary" type="button" @onclick="() => ConfirmCompName(match)">Confirm</button>
     </div>
-    <p><strong>@confirmedCompName</strong></p>
+    <p><strong>@match.ConfirmedCompName</strong></p>
     <hr />
 
     <!-- Row for Team 1 and Team 2 -->
@@ -23,15 +25,15 @@
         <!-- Team 1 -->
         <div class="col-md-4">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" @bind="teamName1" placeholder="Enter team name" name="team1-name" autocomplete="on" />
-                <button class="btn btn-primary" type="button" @onclick="ConfirmTeamName1">Confirm</button>
+                <input type="text" class="form-control" @bind="match.Team1Name" placeholder="Enter team name" name="team1-name" autocomplete="on" />
+                <button class="btn btn-primary" type="button" @onclick="() => ConfirmTeamName1(match)">Confirm</button>
             </div>
-            <p>@confirmedTeamName1</p>
+            <p>@match.ConfirmedTeam1Name</p>
         </div>
 
             <!-- Team 1 Score Input -->
             <div class="col-md-1">
-                    <input type="number" class="form-control" @bind="team1score" />
+                    <input type="number" class="form-control" @bind="match.Team1Score" />
             </div>
 
             @* Dash *@
@@ -41,28 +43,33 @@
 
             <!-- Team 2 Score Input -->
             <div class="col-md-1">
-                    <input type="number" class="form-control" @bind="team2score" />
+                    <input type="number" class="form-control" @bind="match.Team2Score" />
             </div>
 
         <!-- Team 2 -->
         <div class="col-md-4">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" @bind="teamName2" placeholder="Enter team name" name="team2-name" autocomplete="on" />
-                <button class="btn btn-primary" type="button" @onclick="ConfirmTeamName2">Confirm</button>
+                <input type="text" class="form-control" @bind="match.Team2Name" placeholder="Enter team name" name="team2-name" autocomplete="on" />
+                <button class="btn btn-primary" type="button" @onclick="() => ConfirmTeamName2(match)">Confirm</button>
             </div>
-            <p>@confirmedTeamName2</p>
+            <p>@match.ConfirmedTeam2Name</p>
         </div>
     </div>
                                                               
-    <p><strong>@team1score - @team2score</strong></p>
+    <p><strong>@match.Team1Score - @match.Team2Score</strong></p>
+
     <!-- Timer -->
     <div class="">
-        <h2>@timeElapsedString</h2>
-        @if (isHalfTime)
+        <h2>@match.TimeElapsedString</h2>
+        @if (match.IsHalfTime)
         {
-            <h4 style="color: red;"><strong>Half Time</strong></h4>
+            <h6 style="color: blue;"><strong>Half Time</strong></h6>
         }
     </div>
+
+    <hr />
+
+    }
 
     <div class="d-flex">
         <!-- Dropdown Menu -->
@@ -73,185 +80,165 @@
                     <label for="leagues" class="form-label"></label>
                     <select class="form-select w-auto" id="leagueNames" name="leagues">
                         <option value="All" selected>All</option>
-                        <option value="confirmedLeagueName" selected>@confirmedCompName</option>
-
+                        @foreach (var match in matches)
+                        {
+                            <option value="@match.ConfirmedCompName">@match.ConfirmedCompName</option>
+                        }
                     </select>
                 </form>
             </div>
         </div>
 
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>League/Competition</th>
-                    <th scope="col">Team Name</th>
-                    <th scope="col">Scores</th>
-                    <th scope="col">Team Name</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <th scope="row">@confirmedCompName</th>
-                    <td>@confirmedTeamName1</td>
-                    <td>@team1score - @team2score</td>
-                    <td>@confirmedTeamName2</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div>
-            @foreach (var match in matches)
-            {
-                <table class="table table-hover">
-                    <thead>
+  <!-- Add Match Button -->
+    <button class="btn btn-primary" @onclick="AddNewMatch">Add Match</button>
+         <!-- Matches Table -->
+        
+            <table class="table table-hover mt-4">
+                <thead>
+                    <tr>
+                        <th>League/Competition</th>
+                        <th scope="col">Team 1</th>
+                        <th scope="col">Scores</th>
+                        <th scope="col">Team 2</th>
+                    </tr>
+                </thead>
+                <tbody>             
+                    @foreach (var match in matches)
+                    {
                         <tr>
-                            <th>League/Competition</th>
-                            <th scope="col">Team Name</th>
-                            <th scope="col">Scores</th>
-                            <th scope="col">Team Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>@match.CompName</td>
+                            <th scope="row">@match.CompName</th>
                             <td>@match.Team1Name</td>
                             <td>@match.Team1Score - @match.Team2Score</td>
                             <td>@match.Team2Name</td>
                         </tr>
-                    </tbody>
-                </table>
-            }
-        </div>
+                    }
+                </tbody>
+            </table>
+        
     </div>
 </div>
 
 @code {
-	private int currentCount = 0; 
+    private List<Match> matches = new List<Match>();
 
-    public class Match
-    {
-        public string? CompName { get; set; }
-        public string? Team1Name { get; set; }
-        public string? Team2Name { get; set; }
-        public int Team1Score { get; set; }
-        public int Team2Score { get; set; }
-    }
-
-	private List<Match> matches = new List<Match>();
-
-	private string compName = "";
-	private string confirmedCompName = "";
-	private string teamName1 = "";
-	private string confirmedTeamName1 = "";
-	private string teamName2 = "";
-	private string confirmedTeamName2 = "";
-	private int team1score = 0;
-	private int team2score = 0;
-
-	private TimeSpan timeElapsed = TimeSpan.Zero;
-	private string timeElapsedString = "00:00";
-	private System.Timers.Timer? timer;
-
-	private bool isHalfTime = false;
-	private bool isSecondHalf = false;
-	private TimeSpan halfTimeCountdown = TimeSpan.FromMinutes(15);
-
-	protected override void OnInitialized()
-	{
-		timer = new System.Timers.Timer(1000); // Timer will tick every second (1000 milliseconds)
-		timer.Elapsed += OnTimerElapsed;
-		timer.Start();
-	}
-
-	private void OnTimerElapsed(object? sender, System.Timers.ElapsedEventArgs e)
-	{
-	// First half logic: Check if the game is in the first half and not at half-time yet
-		if (!isHalfTime)
-		{
-		// Increment the elapsed time by 1 second
-			timeElapsed = timeElapsed.Add(TimeSpan.FromSeconds(1));
-
-			// If the time is less than 45 minutes, display the time normally
-			if (timeElapsed.TotalMinutes < 45)
-			{
-				timeElapsedString = timeElapsed.ToString(@"mm\:ss");
-			}
-			else
-			{
-			// Once 45 minutes are reached, display "45:00" and set half-time flag to true
-				timeElapsedString = "45:00";
-				isHalfTime = true;
-			}
-		}
-		// Half-time logic: If it's half-time but not yet the second half
-		else if (isHalfTime && !isSecondHalf)
-		{
-		// Decrease the half-time countdown by 1 second
-			halfTimeCountdown = halfTimeCountdown.Subtract(TimeSpan.FromSeconds(1));
-
-			// If there are still seconds remaining in the half-time countdown, display them
-			if (halfTimeCountdown.TotalSeconds > 0)
-			{
-				timeElapsedString = $"Half Time: {halfTimeCountdown.ToString(@"mm\:ss")}";
-			}
-			else
-			{
-			// Once the half-time countdown is over, start the second half
-				isSecondHalf = true;
-				timeElapsed = TimeSpan.FromMinutes(45); // Start the second half from 45:00
-			}
-		}
-		// Second half logic: If the game is in the second half
-		else if (isSecondHalf)
-		{
-		// Increment the elapsed time by 1 second during the second half
-			timeElapsed = timeElapsed.Add(TimeSpan.FromSeconds(1));
-
-			// If the time is less than 90 minutes, display the time normally
-			if (timeElapsed.TotalMinutes < 90)
-			{
-				timeElapsedString = timeElapsed.ToString(@"mm\:ss");
-			}
-			else
-			{
-			// Once 90 minutes are reached, display "90:00" and stop the timer
-				timeElapsedString = "90:00";
-				timer?.Stop();
-			}
-		}
-
-        // Update the UI on each tick to reflect the new time
-		InvokeAsync(StateHasChanged);
-	}
-
-	private void IncrementCount()
-	{
-		currentCount++;
-	}
-	private void ConfirmCompName() => confirmedCompName = compName;
-
-	private void ConfirmTeamName1() => confirmedTeamName1 = teamName1;
-
-	private void ConfirmTeamName2() => confirmedTeamName2 = teamName2;
+    // private int currentCount = 0; 
 
     private void AddNewMatch()
     {
-        // Add current match to the list.
-        matches.Add(new Match
-            {
-                CompName = confirmedCompName,
-                Team1Name = confirmedTeamName1,
-                Team2Name = confirmedTeamName2,
-                Team1Score = team1score,
-                Team2Score = team2score
-            });
+        matches.Add(new Match());
+    }   
 
-        // Clear form for new match.
-        confirmedCompName = "";
-        confirmedTeamName1 = "";
-        confirmedTeamName2 = "";
-        team1score = 0;
-        team2score = 0;
+    private void ConfirmCompName(Match match)
+    {
+        match.ConfirmedCompName = match.CompName;
     }
+
+
+    private void ConfirmTeamName1(Match match)
+    {
+        match.ConfirmedTeam1Name = match.Team1Name;
+    }
+
+    private void ConfirmTeamName2(Match match)
+    {
+        match.ConfirmedTeam2Name = match.Team2Name;
+    }
+
+    public class Match
+    {
+        // private int currentCount = 0;
+
+        public string ConfirmedCompName { get; set; } = string.Empty;
+        public string CompName { get; set; } = string.Empty;
+        public string Team1Name { get; set; } = string.Empty;
+        public string ConfirmedTeam1Name { get; set; } = string.Empty;
+        public string Team2Name { get; set; } = string.Empty;
+        public string ConfirmedTeam2Name { get; set; } = string.Empty;
+        public int Team1Score { get; set; }
+        public int Team2Score { get; set; }
+        public TimeSpan TimeElapsed { get; set; } = TimeSpan.Zero;
+        public string TimeElapsedString { get; set; } = "00:00";
+        public bool IsHalfTime { get; set; } = false;
+        public bool IsSecondHalf { get; set; } = false;
+        public TimeSpan HalfTimeCountdown { get; set; } = TimeSpan.FromMinutes(15);
+        private System.Timers.Timer? Timer { get; set; }
+    
+	// private string compName = "";
+	// private string confirmedCompName = "";
+	// private string teamName1 = "";
+	// private string confirmedTeamName1 = "";
+	// private string teamName2 = "";
+	// private string confirmedTeamName2 = "";
+	// private int team1score = 0;
+	// private int team2score = 0;
+
+	// private System.Timers.Timer? timer;
+
+	// private bool isHalfTime = false;
+	// private bool isSecondHalf = false;
+	// private TimeSpan halfTimeCountdown = TimeSpan.FromMinutes(15);
+
+	public Match()
+	{
+        Timer = new System.Timers.Timer(1000); // Tick every second
+        Timer.Elapsed += OnTimerElapsed;
+        Timer.Start();
+	}
+
+    private void OnTimerElapsed(object? sender, System.Timers.ElapsedEventArgs e)
+    {
+        if (!IsHalfTime)
+        {
+            TimeElapsed = TimeElapsed.Add(TimeSpan.FromSeconds(1));
+
+            if (TimeElapsed.TotalMinutes < 45)
+            {
+                TimeElapsedString = TimeElapsed.ToString(@"mm\:ss");
+            }
+            else
+            {
+                TimeElapsedString = "45:00";
+                IsHalfTime = true;
+            }
+        }
+        else if (IsHalfTime && !IsSecondHalf)
+        {
+            HalfTimeCountdown = HalfTimeCountdown.Subtract(TimeSpan.FromSeconds(1));
+
+            if (HalfTimeCountdown.TotalSeconds > 0)
+            {
+                TimeElapsedString = HalfTimeCountdown.ToString(@"mm\:ss");
+            }
+            else
+            {
+                IsSecondHalf = true;
+                TimeElapsed = TimeSpan.FromMinutes(45); // Start second half
+            }
+        }
+        else if (IsSecondHalf)
+        {
+            TimeElapsed = TimeElapsed.Add(TimeSpan.FromSeconds(1));
+
+            if (TimeElapsed.TotalMinutes < 90)
+            {
+                TimeElapsedString = TimeElapsed.ToString(@"mm\:ss");
+            }
+            else
+            {
+                TimeElapsedString = "90:00";
+                Timer?.Stop();
+            }
+        }
+
+  //       // Update the UI on each tick to reflect the new time
+		// InvokeAsync(StateHasChanged);
+	}
+
+	// private void IncrementCount()
+	// {
+	// 	currentCount++;
+	// }
+
+    }
+
 }
