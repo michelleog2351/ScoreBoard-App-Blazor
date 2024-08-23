@@ -4,7 +4,39 @@
 <PageTitle>Ongoing Matches</PageTitle>
 
 <h1>Ongoing Matches</h1>
+<style>
+    .sticky-add-match {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        background-color: #007bff; /* Blue background */
+        padding: 0; /* Remove padding for better control */
+        border-radius: 50%; /* Make the button circular */
+        width: 60px; /* Smaller width */
+        height: 60px; /* Smaller height to match width */
+        font-size: 30px; /* Smaller font size */
+        font-weight: bold;
+        text-align: center; /* Horizontally center the plus sign */
+        line-height: 60px; /* Vertically center the plus sign */
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for the effects */
+        cursor: pointer;
+        overflow: hidden; /* Hide any overflow from text or effects */
+    }
 
+        .sticky-add-match:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            width: 100px;
+            transform: scale(1.1); /* Slightly increase the size */
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+            border-radius: 5px;
+        }
+
+        .sticky-add-match:hover::before {
+                content: 'Add Match'; /* Add the text on hover */
+                font-size: 15px; /* Adjust the font size for the text */
+        }
+</style>
 @* <p role="status">Current count: @currentCount</p> *@
 
 @* <button class="btn btn-primary" @onclick="AddNewMatch">Add Another Section</button>
@@ -90,7 +122,7 @@
         </div>
 
   <!-- Add Match Button -->
-    <button class="btn btn-primary" @onclick="AddNewMatch">Add Match</button>
+        <button class="btn btn-primary sticky-add-match" @onclick="AddNewMatch">+</button>
          <!-- Matches Table -->
         
             <table class="table table-hover mt-4">
