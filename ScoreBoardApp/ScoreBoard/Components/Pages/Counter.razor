@@ -1,13 +1,19 @@
 ﻿@page "/counter"
 @rendermode InteractiveServer
 
+@inject IJSRuntime JS
+
+
 <PageTitle>Ongoing Matches</PageTitle>
 
-<h1>Ongoing Matches</h1>
+<h1><strong>Live Matches</strong></h1>
+<h3 style="color: grey;">Today, @CurrentDate</h3>
+
 <style>
+    
     .sticky-add-match {
         position: fixed;
-        bottom: 20px;
+        bottom: 90px;
         right: 20px;
         z-index: 1000;
         background-color: #007bff; /* Blue background */
@@ -36,6 +42,42 @@
                 content: 'Add Match'; /* Add the text on hover */
                 font-size: 15px; /* Adjust the font size for the text */
         }
+
+    .back-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        background-color: #28a745; /* Green background */
+        color: white; /* White text color */
+        padding: 0;
+        border-radius: 50%; /* Circular button */
+        width: 60px; /* Smaller width */
+        height: 60px; /* Smaller height to match width */
+        font-size: 24px; /* Adjust font size for the caret symbol */
+        font-weight: bold;
+        text-align: center; /* Horizontally center the plus sign */
+        line-height: 60px; /* Vertically center the caret symbol */
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+    }
+
+        .back-to-top:hover {
+            background-color: #218838; /* Darker green on hover */
+            transform: scale(1.1); /* Slightly increase the size on hover */
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
+            border-radius: 5px; /* Square the corners when hovered */
+        }
+
+            .back-to-top:hover::before {
+                content: 'Top'; /* Add the text on hover */
+                font-size: 16px; /* Adjust the font size for the text */
+            }
+
+            .back-to-top:hover > * {
+                display: none; /* Hide the symbol on hover */
+            }
+
 </style>
 @* <p role="status">Current count: @currentCount</p> *@
 
@@ -123,6 +165,10 @@
 
   <!-- Add Match Button -->
         <button class="btn btn-primary sticky-add-match" @onclick="AddNewMatch">+</button>
+
+        <!-- Add Back To Top Button -->
+        <button class="btn btn-success back-to-top" @onclick="BackToTop">^</button>
+
          <!-- Matches Table -->
         
             <table class="table table-hover mt-4">
@@ -151,6 +197,7 @@
 </div>
 
 @code {
+    private string CurrentDate => DateTime.Now.ToString("MMMM dd yyyy");
     private List<Match> matches = new List<Match>();
 
     // private int currentCount = 0; 
@@ -158,7 +205,13 @@
     private void AddNewMatch()
     {
         matches.Add(new Match());
-    }   
+    }
+    
+    private void BackToTop()
+    {
+        // Scroll to the top of the page
+        JS.InvokeVoidAsync("window.scrollTo", new object[] { 0, 0 });
+    }
 
     private void ConfirmCompName(Match match)
     {

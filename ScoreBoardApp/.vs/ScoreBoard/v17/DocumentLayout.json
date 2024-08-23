@@ -5,6 +5,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{D455A1AA-6A8A-4681-8D8D-2D352A78729F}|ScoreBoard\\ScoreBoard.csproj|c:\\users\\oguna\\onedrive\\desktop\\scoreboard-app-blazor\\scoreboardapp\\scoreboard\\components\\pages\\counter.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{D455A1AA-6A8A-4681-8D8D-2D352A78729F}|ScoreBoard\\ScoreBoard.csproj|solutionrelative:scoreboard\\components\\pages\\counter.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D455A1AA-6A8A-4681-8D8D-2D352A78729F}|ScoreBoard\\ScoreBoard.csproj|c:\\users\\oguna\\onedrive\\desktop\\scoreboard-app-blazor\\scoreboardapp\\scoreboard\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D455A1AA-6A8A-4681-8D8D-2D352A78729F}|ScoreBoard\\ScoreBoard.csproj|solutionrelative:scoreboard\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,11 +18,24 @@
       "DocumentGroups": [
         {
           "DockedHeight": 301,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "ScoreBoard\\Components\\Layout\\NavMenu.razor",
+              "ToolTip": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "ScoreBoard\\Components\\Layout\\NavMenu.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-08-23T22:43:02.972Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -32,7 +49,7 @@
               "RelativeDocumentMoniker": "ScoreBoard\\Components\\Pages\\Counter.razor",
               "ToolTip": "C:\\Users\\oguna\\OneDrive\\Desktop\\ScoreBoard-App-Blazor\\ScoreBoardApp\\ScoreBoard\\Components\\Pages\\Counter.razor",
               "RelativeToolTip": "ScoreBoard\\Components\\Pages\\Counter.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACQAAAAdAAAA",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAAABkAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-08-12T12:06:12.008Z",
               "EditorCaption": ""
