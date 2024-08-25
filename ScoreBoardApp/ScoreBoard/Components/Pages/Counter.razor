@@ -91,7 +91,10 @@
         <input type="text" class="form-control" @bind="match.CompName" placeholder="Enter league or competition name" name="comp-name" autocomplete="on" />
             <button class="btn btn-outline-primary" type="button" @onclick="() => ConfirmCompName(match)">Confirm</button>
     </div>
-    <p><strong>@match.ConfirmedCompName</strong></p>
+    <p>
+                  
+            <strong>@match.ConfirmedCompName</strong>
+    </p>
     <hr />
 
     <!-- Row for Team 1 and Team 2 -->
@@ -103,6 +106,12 @@
                 <input type="text" class="form-control" @bind="match.Team1Name" placeholder="Enter team name" name="team1-name" autocomplete="on" />
                 <button class="btn btn-primary" type="button" @onclick="() => ConfirmTeamName1(match)">Confirm</button>
             </div>
+                <p>
+                    @if (!string.IsNullOrEmpty(match.ConfirmedTeam1Name))
+                    {
+                        <img src="@GetTeamLogoUrl(match.ConfirmedTeam1Name)" alt="@match.ConfirmedTeam1Name Logo" style="width: 50px; height: 50px;" />
+                    }
+                </p>
             <p>@match.ConfirmedTeam1Name</p>
         </div>
 
@@ -127,6 +136,13 @@
                 <input type="text" class="form-control" @bind="match.Team2Name" placeholder="Enter team name" name="team2-name" autocomplete="on" />
                 <button class="btn btn-primary" type="button" @onclick="() => ConfirmTeamName2(match)">Confirm</button>
             </div>
+
+                <p>
+                    @if (!string.IsNullOrEmpty(match.ConfirmedTeam2Name))
+                    {
+                        <img src="@GetTeamLogoUrl(match.ConfirmedTeam2Name)" alt="@match.ConfirmedTeam2Name Logo" style="width: 50px; height: 50px;" />
+                    }
+                </p>
             <p>@match.ConfirmedTeam2Name</p>
         </div>
     </div>
@@ -207,11 +223,26 @@
     {
         matches.Add(new Match());
     }
-    
+
     private void BackToTop()
     {
         // Scroll to the top of the page
         JS.InvokeVoidAsync("window.scrollTo", new object[] { 0, 0 });
+    }
+
+    private string GetTeamLogoUrl(string teamName)
+    {
+        if (string.IsNullOrEmpty(teamName))
+        {
+            return "https://example.com/images/default-logo.png"; // Default image URL if no team name is provided
+        }
+
+        // Replace spaces with underscores and sanitize the name for use in a URL
+        string sanitizedTeamName = teamName.Replace(" ", "_");
+        string encodedTeamName = Uri.EscapeDataString(sanitizedTeamName); // Encode the name for URL
+        
+        // Construct the Wikipedia file URL
+        return $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}.svg";
     }
 
     private void ConfirmCompName(Match match)
