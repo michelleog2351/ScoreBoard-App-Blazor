@@ -7,7 +7,7 @@
 <PageTitle>Ongoing Matches</PageTitle>
 
 <h1><strong>Live Matches</strong></h1>
-<h3 style="color: grey;">Today, @CurrentDate</h3>
+<h3 style="color: grey;">Today, @CurrentDateTime</h3>
 
 <style>
     
@@ -84,6 +84,35 @@
 
 @* <button class="btn btn-primary" @onclick="AddNewMatch">Add Another Section</button>
  *@
+
+<!-- Dropdown Menu for Filtering -->
+<div class="dropdown mb-4">
+    <label for="leagueNames" class="form-label">Filter by League/Competition:</label>
+    <select class="form-select w-auto" id="leagueNames" >
+        <option value="All">All</option>
+        @foreach (var league in matches.Select(m => m.ConfirmedCompName).Distinct())
+        {
+            <option value="@league">@league</option>
+        }
+    </select>
+</div>
+
+<div class="me-3">
+    <!-- Margin end (right) space between dropdown and table -->
+    <div class="dropdown">
+        <form action="">
+            <label for="leagues" class="form-label"></label>
+            <select class="form-select w-auto" id="leagueNames" name="leagues">
+                <option value="All" selected>All</option>
+                @foreach (var match in matches)
+                {
+                    <option value="@match.ConfirmedCompName">@match.ConfirmedCompName</option>
+                }
+            </select>
+        </form>
+    </div>
+</div>
+
 <div class="container text-center" id="scoreboard">
      @foreach (var match in matches)
     {
@@ -147,6 +176,7 @@
         </div>
     </div>
                                                               
+
     <p><strong>@match.Team1Score - @match.Team2Score</strong></p>
 
     <!-- Timer -->
@@ -163,21 +193,16 @@
     }
 
     <div class="d-flex">
-        <!-- Dropdown Menu -->
-        <div class="me-3">
-            <!-- Margin end (right) space between dropdown and table -->
-            <div class="dropdown">
-                <form action="">
-                    <label for="leagues" class="form-label"></label>
-                    <select class="form-select w-auto" id="leagueNames" name="leagues">
-                        <option value="All" selected>All</option>
-                        @foreach (var match in matches)
-                        {
-                            <option value="@match.ConfirmedCompName">@match.ConfirmedCompName</option>
-                        }
-                    </select>
-                </form>
-            </div>
+        <!-- Dropdown Menu for Filtering -->
+        <div class="dropdown mb-4">
+            <label for="leagueNames" class="form-label">Filter by League/Competition:</label>
+            <select class="form-select w-auto" id="leagueNames" @onchange="FilterMatches">
+                <option value="All">All</option>
+                @foreach (var league in matches.Select(m => m.ConfirmedCompName).Distinct())
+                {
+                    <option value="@league">@league</option>
+                }
+            </select>
         </div>
 
   <!-- Add Match Button -->
@@ -191,6 +216,7 @@
             <table class="table table-hover mt-4">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>League/Competition</th>
                         <th scope="col">Team 1</th>
                         <th scope="col">Scores</th>
@@ -200,12 +226,24 @@
                 <tbody>             
                     @foreach (var match in matches)
                     {
-                        <tr>
-                            <th scope="row">@match.CompName</th>
+                        @* <tr>
+                            <td>index + 1</td>
+                            <td>@match.CompName</td>
                             <td>@match.Team1Name</td>
                             <td>@match.Team1Score - @match.Team2Score</td>
                             <td>@match.Team2Name</td>
+                        </tr> *@
+
+                    @for (int i = 0; i < matches.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td> <!-- This will display the index starting from 1 -->
+                            <td>@matches[i].CompName</td>
+                            <td>@matches[i].Team1Name</td>
+                            <td>@matches[i].Team1Score - @matches[i].Team2Score</td>
+                            <td>@matches[i].Team2Name</td>
                         </tr>
+                    }
                     }
                 </tbody>
             </table>
@@ -214,148 +252,245 @@
 </div>
 
 @code {
-    private string CurrentDate => DateTime.Now.ToString("MMMM dd yyyy");
-    private List<Match> matches = new List<Match>();
+    private string CurrentDateTime => DateTime.Now.ToString("MMMM dd yyyy, hh:mm:ss tt");
+	private List<Match> matches = new List<Match>();
+    private List<Match> filteredMatches => matches.Where(m => selectedLeague == "All" || m.ConfirmedCompName == selectedLeague).ToList();
+    private string selectedLeague = "All";
 
-    // private int currentCount = 0; 
+	// private int currentCount = 0; 
 
-    private void AddNewMatch()
+    protected override void OnInitialized()
     {
-        matches.Add(new Match());
+        var timer = new System.Timers.Timer(1000); // 1 second interval
+        timer.Elapsed += UpdateTime;
+        timer.Start();
     }
 
-    private void BackToTop()
+    private void UpdateTime(object? sender, System.Timers.ElapsedEventArgs e)
     {
-        // Scroll to the top of the page
-        JS.InvokeVoidAsync("window.scrollTo", new object[] { 0, 0 });
+        InvokeAsync(StateHasChanged); // Force the component to re-render
     }
 
-    private string GetTeamLogoUrl(string teamName)
-    {
-        if (string.IsNullOrEmpty(teamName))
-        {
-            return "https://example.com/images/default-logo.png"; // Default image URL if no team name is provided
-        }
+	private void AddNewMatch()
+	{
+		matches.Add(new Match());
+	}
+
+	private void BackToTop()
+	{
+	// Scroll to the top of the page
+		JS.InvokeVoidAsync("window.scrollTo", new object[] { 0, 0 });
+	}
+
+	private string GetTeamLogoUrl(string teamName)
+	{
+		if (string.IsNullOrEmpty(teamName))
+		{
+			return "https://example.com/images/default-logo.png"; // Default image URL if no team name is provided
+		}
 
         // Replace spaces with underscores and sanitize the name for use in a URL
-        string sanitizedTeamName = teamName.Replace(" ", "_");
-        string encodedTeamName = Uri.EscapeDataString(sanitizedTeamName); // Encode the name for URL
-        
+		string sanitizedTeamName = teamName.Replace(" ", "_");
+		string encodedTeamName = Uri.EscapeDataString(sanitizedTeamName); // Encode the name for URL
+
         // Construct the Wikipedia file URL
-        return $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}.svg";
-    }
-
-    private void ConfirmCompName(Match match)
-    {
-        match.ConfirmedCompName = match.CompName;
-    }
-
-
-    private void ConfirmTeamName1(Match match)
-    {
-        match.ConfirmedTeam1Name = match.Team1Name;
-    }
-
-    private void ConfirmTeamName2(Match match)
-    {
-        match.ConfirmedTeam2Name = match.Team2Name;
-    }
-
-    public class Match
-    {
-        // private int currentCount = 0;
-
-        public string ConfirmedCompName { get; set; } = string.Empty;
-        public string CompName { get; set; } = string.Empty;
-        public string Team1Name { get; set; } = string.Empty;
-        public string ConfirmedTeam1Name { get; set; } = string.Empty;
-        public string Team2Name { get; set; } = string.Empty;
-        public string ConfirmedTeam2Name { get; set; } = string.Empty;
-        public int Team1Score { get; set; }
-        public int Team2Score { get; set; }
-        public TimeSpan TimeElapsed { get; set; } = TimeSpan.Zero;
-        public string TimeElapsedString { get; set; } = "00:00";
-        public bool IsHalfTime { get; set; } = false;
-        public bool IsSecondHalf { get; set; } = false;
-        public TimeSpan HalfTimeCountdown { get; set; } = TimeSpan.FromMinutes(15);
-        private System.Timers.Timer? Timer { get; set; }
-    
-	// private string compName = "";
-	// private string confirmedCompName = "";
-	// private string teamName1 = "";
-	// private string confirmedTeamName1 = "";
-	// private string teamName2 = "";
-	// private string confirmedTeamName2 = "";
-	// private int team1score = 0;
-	// private int team2score = 0;
-
-	// private System.Timers.Timer? timer;
-
-	// private bool isHalfTime = false;
-	// private bool isSecondHalf = false;
-	// private TimeSpan halfTimeCountdown = TimeSpan.FromMinutes(15);
-
-	public Match()
-	{
-        Timer = new System.Timers.Timer(1000); // Tick every second
-        Timer.Elapsed += OnTimerElapsed;
-        Timer.Start();
+		return $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}.svg";
 	}
 
-    private void OnTimerElapsed(object? sender, System.Timers.ElapsedEventArgs e)
-    {
-        if (!IsHalfTime)
-        {
-            TimeElapsed = TimeElapsed.Add(TimeSpan.FromSeconds(1));
+		// private string GetTeamLogoUrl(string teamName)
+		// {
+		//     if (string.IsNullOrEmpty(teamName))
+		//     {
+	//         return "https://example.com/images/default-logo.png"; // Default image URL if no team name is provided
+	//     }
 
-            if (TimeElapsed.TotalMinutes < 45)
-            {
-                TimeElapsedString = TimeElapsed.ToString(@"mm\:ss");
-            }
-            else
-            {
-                TimeElapsedString = "45:00";
-                IsHalfTime = true;
-            }
-        }
-        else if (IsHalfTime && !IsSecondHalf)
-        {
-            HalfTimeCountdown = HalfTimeCountdown.Subtract(TimeSpan.FromSeconds(1));
+	//     // Sanitize the input to match the expected URL format
+	//     string sanitizedTeamName = teamName.Trim().Replace(" ", "_");
+	//     string encodedTeamName = Uri.EscapeDataString(sanitizedTeamName);
 
-            if (HalfTimeCountdown.TotalSeconds > 0)
-            {
-                TimeElapsedString = HalfTimeCountdown.ToString(@"mm\:ss");
-            }
-            else
-            {
-                IsSecondHalf = true;
-                TimeElapsed = TimeSpan.FromMinutes(45); // Start second half
-            }
-        }
-        else if (IsSecondHalf)
-        {
-            TimeElapsed = TimeElapsed.Add(TimeSpan.FromSeconds(1));
+	//     // Example Wikipedia URL patterns
+	//     string[] possibleUrls = new[]
+	//     {
+	//     $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}_FC_badge.svg",
+	//     $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}_CF_badge.svg",
+	//     $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}_badge.svg",
+	//     $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}_crest.svg",
+	//     $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}_logo.svg"
+	// };
 
-            if (TimeElapsed.TotalMinutes < 90)
-            {
-                TimeElapsedString = TimeElapsed.ToString(@"mm\:ss");
-            }
-            else
-            {
-                TimeElapsedString = "90:00";
-                Timer?.Stop();
-            }
-        }
+	//     // Return the first valid URL
+	//     foreach (var url in possibleUrls)
+    //     {
+	//         // Assuming here that you'd have a way to check if the URL is valid
+	//         if (IsUrlValid(url))
+	//         {
+	//             return url;
+	//         }
+	//     }
 
-  //       // Update the UI on each tick to reflect the new time
-		// InvokeAsync(StateHasChanged);
-	}
-
-	// private void IncrementCount()
-	// {
-	// 	currentCount++;
+	//     // Default image URL if none of the patterns match
+	//     return "https://example.com/images/default-logo.png";
 	// }
 
+	// // This is a placeholder for a method that checks if the URL is valid.
+	// // In a real implementation, you might perform a HEAD request to verify the URL exists.
+	// private bool IsUrlValid(string url)
+	// {
+	//     // Logic to check if the URL is valid
+	//     return true; // For now, assume it's valid
+	// }
+
+
+	// private string GetTeamLogoUrl(string teamName)
+	// {
+	//     if (string.IsNullOrEmpty(teamName))
+	//     {
+	//         return "https://example.com/images/default-logo.png"; // Default image URL if no team name is provided
+	//     }
+
+	//     // List of substrings to check
+	//     string[] substrings = new[] { " FC", " CF", " badge", " crest", " logo" };
+
+	//     // Initialize position to the length of the teamName (meaning no truncation if no substrings are found)
+	//     int position = teamName.Length;
+
+	//     // Check for each substring in the team name
+	//     foreach (var substring in substrings)
+	//     {
+	//         int foundPosition = teamName.IndexOf(substring, StringComparison.OrdinalIgnoreCase);
+
+	//         // Update position to the earliest found substring
+	//         if (foundPosition != -1 && foundPosition < position)
+	//         {
+	//             position = foundPosition;
+	//         }
+	//     }
+
+	//     // Truncate the team name at the position of the first found substring
+	//     string truncatedTeamName = teamName.Substring(0, position).Trim();
+	//     string sanitizedTeamName = truncatedTeamName.Replace(" ", "_");
+	//     string encodedTeamName = Uri.EscapeDataString(sanitizedTeamName);
+
+	//     // Construct the Wikipedia file URL
+	//     return $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}.svg";
+	// }
+
+    private void FilterMatches(ChangeEventArgs e)
+    {
+        selectedLeague = e.Value?.ToString() ?? "All";
     }
 
+
+	private void ConfirmCompName(Match match)
+	{
+		match.ConfirmedCompName = match.CompName;
+	}
+
+
+	private void ConfirmTeamName1(Match match)
+	{
+		match.ConfirmedTeam1Name = match.Team1Name;
+	}
+
+	private void ConfirmTeamName2(Match match)
+	{
+		match.ConfirmedTeam2Name = match.Team2Name;
+	}
+
+	public class Match
+	{
+	// private int currentCount = 0;
+
+		public string ConfirmedCompName { get; set; } = string.Empty;
+		public string CompName { get; set; } = string.Empty;
+		public string Team1Name { get; set; } = string.Empty;
+		public string ConfirmedTeam1Name { get; set; } = string.Empty;
+		public string Team2Name { get; set; } = string.Empty;
+		public string ConfirmedTeam2Name { get; set; } = string.Empty;
+		public int Team1Score { get; set; }
+		public int Team2Score { get; set; }
+		public TimeSpan TimeElapsed { get; set; } = TimeSpan.Zero;
+		public string TimeElapsedString { get; set; } = "00:00";
+		public bool IsHalfTime { get; set; } = false;
+		public bool IsSecondHalf { get; set; } = false;
+		public TimeSpan HalfTimeCountdown { get; set; } = TimeSpan.FromMinutes(15);
+		private System.Timers.Timer? Timer { get; set; }
+
+		// private string compName = "";
+		// private string confirmedCompName = "";
+		// private string teamName1 = "";
+		// private string confirmedTeamName1 = "";
+		// private string teamName2 = "";
+		// private string confirmedTeamName2 = "";
+		// private int team1score = 0;
+		// private int team2score = 0;
+
+		// private System.Timers.Timer? timer;
+
+		// private bool isHalfTime = false;
+		// private bool isSecondHalf = false;
+		// private TimeSpan halfTimeCountdown = TimeSpan.FromMinutes(15);
+
+		public Match()
+		{
+			Timer = new System.Timers.Timer(1000); // Tick every second
+			Timer.Elapsed += OnTimerElapsed;
+			Timer.Start();
+		}
+
+		private void OnTimerElapsed(object? sender, System.Timers.ElapsedEventArgs e)
+		{
+			if (!IsHalfTime)
+			{
+				TimeElapsed = TimeElapsed.Add(TimeSpan.FromSeconds(1));
+
+				if (TimeElapsed.TotalMinutes < 45)
+				{
+					TimeElapsedString = TimeElapsed.ToString(@"mm\:ss");
+				}
+				else
+				{
+					TimeElapsedString = "45:00";
+					IsHalfTime = true;
+				}
+			}
+			else if (IsHalfTime && !IsSecondHalf)
+			{
+				HalfTimeCountdown = HalfTimeCountdown.Subtract(TimeSpan.FromSeconds(1));
+
+				if (HalfTimeCountdown.TotalSeconds > 0)
+				{
+					TimeElapsedString = HalfTimeCountdown.ToString(@"mm\:ss");
+				}
+				else
+				{
+					IsSecondHalf = true;
+					TimeElapsed = TimeSpan.FromMinutes(45); // Start second half
+				}
+			}
+			else if (IsSecondHalf)
+			{
+				TimeElapsed = TimeElapsed.Add(TimeSpan.FromSeconds(1));
+
+				if (TimeElapsed.TotalMinutes < 90)
+				{
+					TimeElapsedString = TimeElapsed.ToString(@"mm\:ss");
+				}
+				else
+				{
+					TimeElapsedString = "90:00";
+					Timer?.Stop();
+				}
+			}
+
+			//       // Update the UI on each tick to reflect the new time
+			// InvokeAsync(StateHasChanged);
+		}
+
+		// private void IncrementCount()
+		// {
+		// 	currentCount++;
+		// }
+
+	}
 }
