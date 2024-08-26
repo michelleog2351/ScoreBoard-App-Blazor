@@ -27,6 +27,12 @@ C:\Users\oguna\OneDrive\Desktop\ScoreBoard\ScoreBoard\ScoreBoard\obj\Debug\net8.
 C:\Users\oguna\OneDrive\Desktop\ScoreBoard\ScoreBoard\ScoreBoard\obj\Debug\net8.0\ScoreBoard.pdb
 C:\Users\oguna\OneDrive\Desktop\ScoreBoard\ScoreBoard\ScoreBoard\obj\Debug\net8.0\ScoreBoard.genruntimeconfig.cache
 C:\Users\oguna\OneDrive\Desktop\ScoreBoard\ScoreBoard\ScoreBoard\obj\Debug\net8.0\ref\ScoreBoard.dll
+C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\ScoreBoard.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\ScoreBoard.AssemblyInfoInputs.cache
+C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\ScoreBoard.AssemblyInfo.cs
+C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\ScoreBoard.csproj.CoreCompileInputs.cache
+C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\ScoreBoard.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\ScoreBoard.sourcelink.json
 C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\bin\Debug\net8.0\appsettings.json
 C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\bin\Debug\net8.0\ScoreBoard.staticwebassets.runtime.json
@@ -35,12 +41,6 @@ C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\b
 C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\bin\Debug\net8.0\ScoreBoard.runtimeconfig.json
 C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\bin\Debug\net8.0\ScoreBoard.dll
 C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\bin\Debug\net8.0\ScoreBoard.pdb
-C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\ScoreBoard.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\ScoreBoard.AssemblyInfoInputs.cache
-C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\ScoreBoard.AssemblyInfo.cs
-C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\ScoreBoard.csproj.CoreCompileInputs.cache
-C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\ScoreBoard.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\ScoreBoard.sourcelink.json
 C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\oguna\OneDrive\Desktop\ScoreBoard-App-Blazor\ScoreBoardApp\ScoreBoard\obj\Debug\net8.0\staticwebassets\msbuild.ScoreBoard.Microsoft.AspNetCore.StaticWebAssets.props
