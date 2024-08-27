@@ -11,6 +11,11 @@
 
 <style>
     
+    td img{
+        width: 30px;
+        height: 30px;
+    }
+
     .sticky-add-match {
         position: fixed;
         bottom: 90px;
@@ -105,7 +110,7 @@
         <table class="table table-hover mt-4">
             <thead>
                 <tr>
-                    <th></th>
+                    <th>#</th>
                     <th>League/Competition</th>
                     <th scope="col">Team 1</th>
                     <th scope="col">Scores</th>
@@ -113,19 +118,16 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var match in matches)
-                {
                     @for (int i = 0; i < matches.Count; i++)
                     {
                         <tr>
-                            <td>@(i + 1)</td> <!-- This will display the index starting from 1 -->
+                            <td><strong>@(i + 1)</strong></td> <!-- This will display the index starting from 1 -->
                             <td>@matches[i].CompName</td>
-                            <td>@matches[i].Team1Name</td>
+                            <td>@matches[i].Team1Name <img src="@GetTeamLogoUrl(matches[i].ConfirmedTeam1Name)" /></td>
                             <td>@matches[i].Team1Score - @matches[i].Team2Score</td>
-                            <td>@matches[i].Team2Name</td>
-                        </tr>
+                            <td><img src="@GetTeamLogoUrl(matches[i].ConfirmedTeam2Name)" /> @matches[i].Team2Name</td>
+                    </tr>
                     }
-                }
             </tbody>
         </table>
     </div>
@@ -164,7 +166,7 @@
 
             <!-- Team 1 Score Input -->
             <div class="col-md-1">
-                    <input type="number" class="form-control" @bind="match.Team1Score" />
+                    <h1><input type="number" class="form-control" @bind="match.Team1Score" /></h1>
             </div>
 
             @* Dash *@
@@ -195,17 +197,21 @@
     </div>
                                                               
 
-    <p><strong>@match.Team1Score - @match.Team2Score</strong></p>
+    // Confirmed Team1 and Team2 scores
+    <h2><strong>@match.Team1Score - @match.Team2Score</strong></h2>
 
     <!-- Timer -->
-    <div class="">
-        <h2>@match.TimeElapsedString</h2>
-        @if (match.IsHalfTime)
-        {
-            <h6 style="color: blue;"><strong>Half Time</strong></h6>
-        }
-    </div>
-
+        <div class="match-period">
+            <h6>@match.TimeElapsedString</h6>
+            @if (match.IsFullTime)
+            {
+                <h6 style="color: red;"><strong>Full Time</strong></h6>
+            }
+            else if (match.IsHalfTime && !match.IsSecondHalf)
+            {
+                <h6 style="color: blue;"><strong>Half Time</strong></h6>
+            }
+        </div>
     <hr />
 
     }
@@ -314,7 +320,7 @@
     //     if (string.IsNullOrEmpty(teamName))
     //     {
     //         return "https://example.com/images/default-logo.png"; // Default image URL if no team name is provided
-	//     }
+    //     }
 
     //     // List of substrings to check
     //     string[] substrings = new[] { " FC", " CF", " badge", " crest", " logo" };
@@ -381,63 +387,62 @@
         public string TimeElapsedString { get; set; } = "00:00";
         public bool IsHalfTime { get; set; } = false;
         public bool IsSecondHalf { get; set; } = false;
+        public bool IsFullTime { get; private set; } = false;
         public TimeSpan HalfTimeCountdown { get; set; } = TimeSpan.FromMinutes(15);
         private System.Timers.Timer? Timer { get; set; }
 
-		public Match()
-		{
-			Timer = new System.Timers.Timer(1000); // Tick every second
-			Timer.Elapsed += OnTimerElapsed;
-			Timer.Start();
-		}
+        public Match()
+        {
+            Timer = new System.Timers.Timer(1000); // Tick every second
+            Timer.Elapsed += OnTimerElapsed;
+            Timer.Start();
+        }
 
-		private void OnTimerElapsed(object? sender, System.Timers.ElapsedEventArgs e)
-		{
-			if (!IsHalfTime)
-			{
-				TimeElapsed = TimeElapsed.Add(TimeSpan.FromSeconds(1));
+        private void OnTimerElapsed(object? sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (!IsHalfTime)
+            {
+                TimeElapsed = TimeElapsed.Add(TimeSpan.FromSeconds(1));
 
-				if (TimeElapsed.TotalMinutes < 45)
-				{
-					TimeElapsedString = TimeElapsed.ToString(@"mm\:ss");
-				}
-				else
-				{
-					TimeElapsedString = "45:00";
-					IsHalfTime = true;
+                if (TimeElapsed.TotalMinutes < 45)
+                {
+                    TimeElapsedString = TimeElapsed.ToString(@"mm\:ss");
+                }
+                else
+                {
+                    TimeElapsedString = "45:00";
+                    IsHalfTime = true;
+                }
+            }
+            else if (IsHalfTime && !IsSecondHalf)
+            {
+                HalfTimeCountdown = HalfTimeCountdown.Subtract(TimeSpan.FromSeconds(1));
+
+                if (HalfTimeCountdown.TotalSeconds > 0)
+                {
+                    TimeElapsedString = HalfTimeCountdown.ToString(@"mm\:ss");
+                }
+                else
+                {
+                    IsSecondHalf = true;
+                    TimeElapsed = TimeSpan.FromMinutes(45); // Start second half
+                }
+            }
+            else if (IsSecondHalf)
+            {
+                TimeElapsed = TimeElapsed.Add(TimeSpan.FromSeconds(1));
+
+                if (TimeElapsed.TotalMinutes < 90)
+                {
+                    TimeElapsedString = TimeElapsed.ToString(@"mm\:ss");
+                }
+                else
+                {
+                    TimeElapsedString = "90:00";
+                    IsFullTime = true;
+                    Timer?.Stop();
 				}
 			}
-			else if (IsHalfTime && !IsSecondHalf)
-			{
-				HalfTimeCountdown = HalfTimeCountdown.Subtract(TimeSpan.FromSeconds(1));
-
-				if (HalfTimeCountdown.TotalSeconds > 0)
-				{
-					TimeElapsedString = HalfTimeCountdown.ToString(@"mm\:ss");
-				}
-				else
-				{
-					IsSecondHalf = true;
-					TimeElapsed = TimeSpan.FromMinutes(45); // Start second half
-				}
-			}
-			else if (IsSecondHalf)
-			{
-				TimeElapsed = TimeElapsed.Add(TimeSpan.FromSeconds(1));
-
-				if (TimeElapsed.TotalMinutes < 90)
-				{
-					TimeElapsedString = TimeElapsed.ToString(@"mm\:ss");
-				}
-				else
-				{
-					TimeElapsedString = "90:00";
-					Timer?.Stop();
-				}
-			}
-
-			//       // Update the UI on each tick to reflect the new time
-			// InvokeAsync(StateHasChanged);
 		}
 
 		// private void IncrementCount()
