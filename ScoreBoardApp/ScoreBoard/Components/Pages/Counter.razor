@@ -34,7 +34,6 @@
         cursor: pointer;
         overflow: hidden; /* Hide any overflow from text or effects */
     }
-
         .sticky-add-match:hover {
             background-color: #0056b3; /* Darker blue on hover */
             padding: 4px 4px 4px 4px; 
@@ -43,11 +42,10 @@
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
             border-radius: 5px;
         }
-
-        .sticky-add-match:hover::before {
-                content: 'Add Match'; /* Add the text on hover */
-                font-size: 12px; /* Adjust the font size for the text */
-        }
+            .sticky-add-match:hover::before {
+                    content: 'Add Match'; /* Add the text on hover */
+                    font-size: 12px; /* Adjust the font size for the text */
+            }
 
     .back-to-top {
         position: fixed;
@@ -67,14 +65,12 @@
         cursor: pointer;
         transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
     }
-
         .back-to-top:hover {
             background-color: #218838; /* Darker green on hover */
             transform: scale(1.1); /* Slightly increase the size on hover */
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Add a shadow effect */
             border-radius: 5px; /* Square the corners when hovered */
         }
-
             .back-to-top:hover::before {
                 content: 'Top'; /* Add the text on hover */
                 font-size: 16px; /* Adjust the font size for the text */
@@ -85,10 +81,6 @@
             }
 
 </style>
-@* <p role="status">Current count: @currentCount</p> *@
-
-@* <button class="btn btn-primary" @onclick="AddNewMatch">Add Another Section</button>
- *@
 
 <div class="me-3">
     <!-- Margin end (right) space between dropdown and table -->
@@ -141,7 +133,6 @@
             <button class="btn btn-outline-primary" type="button" @onclick="() => ConfirmCompName(match)">Confirm</button>
     </div>
     <p>
-                  
             <strong>@match.ConfirmedCompName</strong>
     </p>
     <hr />
@@ -196,7 +187,6 @@
         </div>
     </div>
                                                               
-
     // Confirmed Team1 and Team2 scores
     <h2><strong>@match.Team1Score - @match.Team2Score</strong></h2>
 
@@ -221,7 +211,6 @@
 
         <!-- Add Back To Top Button -->
         <button class="btn btn-success back-to-top" @onclick="BackToTop">^</button>
-
     
 </div>
 
@@ -231,8 +220,6 @@
     private List<Match> filteredMatches => matches.Where(m => selectedLeague == "All" || m.ConfirmedCompName == selectedLeague).ToList();
     private string selectedLeague = "All";
 
-    // private int currentCount = 0; 
-
     protected override void OnInitialized()
     {
         var timer = new System.Timers.Timer(1000); // 1 second interval
@@ -240,15 +227,9 @@
         timer.Start();
     }
 
-    private void UpdateTime(object? sender, System.Timers.ElapsedEventArgs e)
-    {
-        InvokeAsync(StateHasChanged); // Force the component to re-render
-    }
+    private void UpdateTime(object? sender, System.Timers.ElapsedEventArgs e) => InvokeAsync(StateHasChanged); // Force the component to re-render
 
-    private void AddNewMatch()
-    {
-        matches.Add(new Match());
-    }
+    private void AddNewMatch() => matches.Add(new Match());
 
     private void BackToTop()
     {
@@ -260,7 +241,8 @@
     {
         if (string.IsNullOrEmpty(teamName))
         {
-            return "https://example.com/images/default-logo.png"; // Default image URL if no team name is provided
+            // return "https://example.com/images/default-logo.png"; // Default image URL if no team name is provided
+            return $"https://www.google.com/search?q=google+{teamName}"; // Default image URL if no team name is provided
         }
 
         // Replace spaces with underscores and sanitize the name for use in a URL
@@ -271,105 +253,16 @@
         return $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}.svg";
     }
 
-    // private string GetTeamLogoUrl(string teamName)
-    // {
-    //     if (string.IsNullOrEmpty(teamName))
-    //     {
-    //         return "https://example.com/images/default-logo.png"; // Default image URL if no team name is provided
-    //     }
-
-    //     // Sanitize the input to match the expected URL format
-    //     string sanitizedTeamName = teamName.Trim().Replace(" ", "_");
-    //     string encodedTeamName = Uri.EscapeDataString(sanitizedTeamName);
-
-    //     // Example Wikipedia URL patterns
-    //     string[] possibleUrls = new[]
-    //     {
-    //     $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}_FC_badge.svg",
-    //     $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}_CF_badge.svg",
-    //     $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}_badge.svg",
-    //     $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}_crest.svg",
-    //     $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}_logo.svg"
-    // };
-
-    //     // Return the first valid URL
-    //     foreach (var url in possibleUrls)
-    //     {
-    //         // Assuming here that you'd have a way to check if the URL is valid
-    //         if (IsUrlValid(url))
-    //         {
-    //             return url;
-    //         }
-    //     }
-
-    //     // Default image URL if none of the patterns match
-    //     return "https://example.com/images/default-logo.png";
-    // }
-
-    // // This is a placeholder for a method that checks if the URL is valid.
-    // // In a real implementation, you might perform a HEAD request to verify the URL exists.
-    // private bool IsUrlValid(string url)
-    // {
-    //     // Logic to check if the URL is valid
-    //     return true; // For now, assume it's valid
-    // }
-
-
-    // private string GetTeamLogoUrl(string teamName)
-    // {
-    //     if (string.IsNullOrEmpty(teamName))
-    //     {
-    //         return "https://example.com/images/default-logo.png"; // Default image URL if no team name is provided
-    //     }
-
-    //     // List of substrings to check
-    //     string[] substrings = new[] { " FC", " CF", " badge", " crest", " logo" };
-
-    //     // Initialize position to the length of the teamName (meaning no truncation if no substrings are found)
-    //     int position = teamName.Length;
-
-    //     // Check for each substring in the team name
-    //     foreach (var substring in substrings)
-    //     {
-    //         int foundPosition = teamName.IndexOf(substring, StringComparison.OrdinalIgnoreCase);
-
-    //         // Update position to the earliest found substring
-    //         if (foundPosition != -1 && foundPosition < position)
-    //         {
-    //             position = foundPosition;
-    //         }
-    //     }
-
-    //     // Truncate the team name at the position of the first found substring
-    //     string truncatedTeamName = teamName.Substring(0, position).Trim();
-    //     string sanitizedTeamName = truncatedTeamName.Replace(" ", "_");
-    //     string encodedTeamName = Uri.EscapeDataString(sanitizedTeamName);
-
-    //     // Construct the Wikipedia file URL
-    //     return $"https://en.wikipedia.org/wiki/Special:Redirect/file/{encodedTeamName}.svg";
-    // }
-
     private void FilterMatches(ChangeEventArgs e)
     {
         selectedLeague = e.Value?.ToString() ?? "All";
     }
 
+    private void ConfirmCompName(Match match) => match.ConfirmedCompName = match.CompName;
 
-    private void ConfirmCompName(Match match)
-    {
-        match.ConfirmedCompName = match.CompName;
-    }
+    private void ConfirmTeamName1(Match match) => match.ConfirmedTeam1Name = match.Team1Name;
 
-
-    private void ConfirmTeamName1(Match match)
-    {
-        match.ConfirmedTeam1Name = match.Team1Name;
-    }
-
-    private void ConfirmTeamName2(Match match)
-    {
-        match.ConfirmedTeam2Name = match.Team2Name;
-    }
+    private void ConfirmTeamName2(Match match) => match.ConfirmedTeam2Name = match.Team2Name;
 
     public class Match
     {
@@ -444,11 +337,6 @@
 				}
 			}
 		}
-
-		// private void IncrementCount()
-		// {
-		// 	currentCount++;
-		// }
 
 	}
 }
